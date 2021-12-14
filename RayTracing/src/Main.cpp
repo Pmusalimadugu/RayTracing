@@ -17,6 +17,7 @@ int main()
 
 	for (int r = 0; r < image_width; r++)
 	{
+		std::cerr << "\rScanlines progress: " << (float)100*r/image_width << '%' << std::flush;
 		for (int c = 0; c < image_height; c++)
 		{
 			print(255 * r / image_width);
@@ -29,6 +30,8 @@ int main()
 		}
 
 	}
+
+	std::cerr << "\nDone.\n";
 
 
 }
