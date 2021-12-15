@@ -1,4 +1,5 @@
 #include <iostream>
+#include "Vec3.h"
 
 #define print(x) std::cout << x 
 #define println(x) std::cout << x << std::endl
