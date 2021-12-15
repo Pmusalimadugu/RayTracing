@@ -1,10 +1,16 @@
 #include <iostream>
+#include <fstream>
 #include "Vec3.h"
+#include "Color.h"
 
-#define print(x) std::cout << x 
-#define println(x) std::cout << x << std::endl
+#define print(x) image << x 
+#define println(x) image << x << "\n"
+
 int main()
 {
+	std::ofstream image;
+
+	image.open("image.ppm");
 
 	const int image_height = 1000;
 	const int image_width = 1000; 
@@ -21,16 +27,15 @@ int main()
 		std::cerr << "\rScanlines progress: " << (float)100*r/image_width << '%' << std::flush;
 		for (int c = 0; c < image_height; c++)
 		{
-			print(255 * r / image_width);
-			print(" ");
-			print(255 * c / image_height);
-			print(" ");
-			println(125);
+			Color pixel_color(float(r) / (image_width - 1), float(c) / (image_height - 1), 0.25);
+			write_color(image, pixel_color);
 
 		
 		}
 
 	}
+
+	image.close();
 
 	std::cerr << "\nDone.\n";
 
