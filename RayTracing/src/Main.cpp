@@ -7,6 +7,13 @@
 #define print(x) image << x 
 #define println(x) image << x << "\n"
 
+// from online code
+Color ray_color(const Ray& r) {
+	Vec3 unit_direction = unit_vector(r.getDirection());
+	auto t = 0.5 * (unit_direction.y() + 1.0);
+	return (1.0 - t) * Color(1.0, 1.0, 1.0) + t * Color(0.5, 0.7, 1.0);
+}
+
 int main() {
 	std::ofstream image;
 
