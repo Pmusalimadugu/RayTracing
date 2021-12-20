@@ -49,7 +49,10 @@ int main() {
 		std::cerr << "\rScanlines progress: " << (float)100*c/image_height << '%' << std::flush;
 
 		for (int r = 0; r < image_width; r++) {
-			Color pixel_color(float(r) / (image_width - 1), float(c) / (image_height - 1), 0.25);
+			auto u = double(r) / (image_width - 1);
+			auto v = double(c) / (image_height - 1);
+			Ray mainRay(origin, lower_left_corner + u * horizontal + v * vertical - origin);
+			Color pixel_color = ray_color(mainRay);
 			write_color(image, pixel_color);
 		}
 
