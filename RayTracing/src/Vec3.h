@@ -85,7 +85,7 @@ inline Vec3 operator/(Vec3 v, float t) {
 	return (1 / t) * v;
 }
 
-inline double dot(const Vec3& u, const Vec3& v) {
+inline float dot(const Vec3& u, const Vec3& v) {
 	return u.e[0] * v.e[0]
 		+ u.e[1] * v.e[1]
 		+ u.e[2] * v.e[2];
