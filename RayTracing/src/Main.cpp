@@ -7,13 +7,24 @@
 #define print(x) image << x 
 #define println(x) image << x << "\n"
 
+bool hit_sphere(const Point3& center, double radius, const Ray& r) {
+	Vec3 oc = r.getOrigin() - center;
+	auto a = dot(r.getDirection(), r.getDirection());
+	auto b = 2.0 * dot(oc, r.getDirection());
+	auto c = dot(oc, oc) - radius * radius;
+	auto discriminant = b * b - 4 * a * c;
+	return (discriminant > 0);
+}
+
+
 // from online code
 Color ray_color(const Ray& r) {
+	if (hit_sphere(Point3(0, 0, -1), 1, r))
+		return Color(1, 0, 0);
 	Vec3 unit_direction = unit_vector(r.getDirection());
 	auto t = 0.5 * (unit_direction.y() + 1.0);
 	return (1.0 - t) * Color(1.0, 1.0, 1.0) + t * Color(0.5, 0.7, 1.0);
 }
-
 int main() {
 	std::ofstream image;
 
