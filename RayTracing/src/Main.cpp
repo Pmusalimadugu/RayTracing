@@ -22,8 +22,8 @@ Color ray_color(const Ray& r) {
 	if (hit_sphere(Point3(0, 0, -1), 1, r))
 		return Color(1, 0, 0);
 	Vec3 unit_direction = unit_vector(r.getDirection());
-	auto t = 0.5 * (unit_direction.y() + 1.0);
-	return (1.0 - t) * Color(1.0, 1.0, 1.0) + t * Color(0.5, 0.7, 1.0);
+	auto t = 0.5f * (unit_direction.y() + 1.0f);
+	return (1.0f - t) * Color(1.0f, 1.0f, 1.0f) + t * Color(0.5f, 0.7f, 1.0f);
 }
 int main() {
 	std::ofstream image;
