@@ -5,10 +5,10 @@
 struct HitRecord {
     Point3 p;
     Vec3 normal;
-    double t;
+    float t;
 };
 
-class AbstractHittable {
+class Hittable {
 public:
-    virtual bool hit(const Ray& r, double tMin, double tMax, HitRecord& record) const = 0;
+    virtual bool hit(const Ray& r, float tMin, float tMax, HitRecord& record) const = 0;
 };
