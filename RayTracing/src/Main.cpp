@@ -19,21 +19,36 @@ int main() {
 
 	image.open("image.ppm");
 
-	const int image_height = 1000;
-	const int image_width = 1000; 
+
+	// Image
+	const auto aspect_ratio = 16.0 / 9.0;
+	const int image_width = 400;
+	const int image_height = static_cast<int>(image_width / aspect_ratio);
+
+	// Camera
+
+	auto viewport_height = 2.0;
+	auto viewport_width = aspect_ratio * viewport_height;
+	auto focal_length = 1.0;
+
+	auto origin = Point3(0, 0, 0);
+	auto horizontal = Vec3(viewport_width, 0, 0);
+	auto vertical = Vec3(0, viewport_height, 0);
+	auto lower_left_corner = origin - horizontal / 2 - vertical / 2 - Vec3(0, 0, focal_length);
+
 
 	println("P3");
-	print(image_height);
+	print(image_width);
 	print(" ");
-	println(image_width);
+	println(image_height);
 	println("255");
 
 
-	for (int r = 0; r < image_width; r++) {
+	for (int c = 0; c < image_height; c++) {
 
-		std::cerr << "\rScanlines progress: " << (float)100*r/image_width << '%' << std::flush;
+		std::cerr << "\rScanlines progress: " << (float)100*c/image_height << '%' << std::flush;
 
-		for (int c = 0; c < image_height; c++) {
+		for (int r = 0; r < image_width; r++) {
 			Color pixel_color(float(r) / (image_width - 1), float(c) / (image_height - 1), 0.25);
 			write_color(image, pixel_color);
 		}
