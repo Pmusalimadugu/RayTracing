@@ -1,7 +1,7 @@
 #include "Vec3.h"
 
 
-Vec3::Vec3() : e{ 1.0f, 2.0f, 3.0f } {}
+Vec3::Vec3() : e{ 0.0f, 0.0f, 0.0f } {}
 Vec3::Vec3(float x, float y, float z) : e{ x, y, z } {}
 
 float Vec3::x() const { return e[0]; }
