@@ -3,17 +3,13 @@
 
 class Ray {
 public:
-	Ray()
-		: origin(Vec3(0.0f, 0.0f, 0.0f)), direction(Vec3(0.0f, 0.0f, 0.0f)) {}
-	Ray(const Point3& origin, const Vec3& direction)
-		: origin(origin), direction(direction) {}
+	Ray();
+	Ray(const Point3& origin, const Vec3& direction);
 
-	Point3 getOrigin()  const { return origin; }
-	Vec3 getDirection() const { return direction; }
-
-	Point3 at(float t) const {
-		return origin + direction * t;
-	}
+	Point3 getOrigin()  const;
+	Vec3 getDirection() const;
+	Point3 at(float t) const;
+	
 public:
 	Point3 origin;
 	Vec3 direction;

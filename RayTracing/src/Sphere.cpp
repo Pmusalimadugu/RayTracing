@@ -1,4 +1,12 @@
 #include "Sphere.h"
+#include "Vec3.h"
+
+
+Sphere::Sphere() :
+    center(Point3(0, 0, 0)), radius(0.5f) {}
+Sphere::Sphere(Point3 center, float radius) :
+    center(center), radius(radius) {}
+
 
 bool Sphere::hit(const Ray& r, float tMin, float tMax, HitRecord& record) const {
     Vec3 oc = r.getOrigin() - center;
@@ -24,3 +32,4 @@ bool Sphere::hit(const Ray& r, float tMin, float tMax, HitRecord& record) const 
 
     return true;
 }
+

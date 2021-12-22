@@ -1,62 +1,29 @@
 #pragma once
 #include <cmath>
-#include "cuda_runtime.h"
-#include "device_launch_parameters.h"
+
 
 class Vec3 {
 public:
 
-	Vec3() : e{ 1.0f, 2.0f, 3.0f } {}
-	Vec3(float x, float y, float z) : e{ x, y, z } {}
-	__device__
-	float x() const { return e[0]; }
-	__device__
-	float y() const { return e[1]; }
-	__device__
-	float z() const { return e[2]; }
+	Vec3();
+	Vec3(float x, float y, float z);
+	float x() const;
+	float y() const;
+	float z() const;
 
 
-	Vec3 operator-() const { return Vec3(-e[0], -e[1], -e[2]); }
-	float& operator[](int i) { return e[i]; }
+	Vec3 operator-() const;
+	float& operator[](int i);
+	Vec3& operator+=(const Vec3& u);
+	Vec3& operator*=(const float t);
+	Vec3& operator/=(const float t);
 
-	__device__
-	Vec3& operator+=(const Vec3& u) {
-		e[0] += u.x();
-		e[1] += u.y();
-		e[2] += u.z();
-		return *this;
-	}
-
-	__device__
-	Vec3& operator*=(const float t) {
-		e[0] *= t;
-		e[1] *= t;
-		e[2] *= t;
-		return *this;
-	}
-	
-
-	__device__
-	Vec3& operator/=(const float t) {
-		return *this *= 1 / t;
-	}
-
-	__device__
-	float length() const {
-		return sqrt(length_squared());
-	}
-
-	__device__
-	float length_squared() const {
-		return e[0] * e[0] + e[1] * e[1] + e[2] * e[2];
-	}
-
-
+	float length() const;
+	float length_squared() const;
 
 public:
 	float e[3];
 };
-
 
 inline Vec3 operator+(const Vec3& u, const Vec3& v) {
 	return Vec3(u.e[0] + v.e[0], u.e[1] + v.e[1], u.e[2] + v.e[2]);
