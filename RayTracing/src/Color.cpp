@@ -1,6 +1,6 @@
 #include "Color.h"
 
-void write_color(std::ofstream& image, Color pixel_color) {
+void writeColor(std::ofstream& image, Color pixel_color) {
     // Write the translated [0,255] value of each color component.
     image << static_cast<int>(255.999 * pixel_color.x()) << ' '
         << static_cast<int>(255.999 * pixel_color.y()) << ' '

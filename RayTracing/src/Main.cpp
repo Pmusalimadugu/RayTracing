@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
-#include "Vec3.h"
+
+#include "RayTracing.h"
 #include "Color.h"
 
 #define print(x) image << x 
@@ -28,7 +29,7 @@ int main()
 		for (int c = 0; c < image_height; c++)
 		{
 			Color pixel_color(float(r) / (image_width - 1), float(c) / (image_height - 1), 0.25);
-			write_color(image, pixel_color);
+			writeColor(image, pixel_color);
 
 		
 		}
