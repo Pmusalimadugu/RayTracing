@@ -156,6 +156,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\HittableList.cpp" />
     <ClCompile Include="src\Color.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Ray.cpp" />
@@ -163,6 +164,7 @@
     <ClCompile Include="src\Vec3.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\HittableList.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Color.h" />
     <ClInclude Include="src\Hittable.h" />

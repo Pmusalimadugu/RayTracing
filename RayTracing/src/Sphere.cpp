@@ -30,6 +30,9 @@ bool Sphere::hit(const Ray& r, float tMin, float tMax, HitRecord& record) const 
     record.p = r.at(record.t);
     record.normal = (record.p - center) / radius;
 
+    Vec3 outWardNormal = (record.p - center) / radius;
+    record.setFaceNormal(r, outWardNormal);
+
     return true;
 }
 
