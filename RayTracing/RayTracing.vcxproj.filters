@@ -56,5 +56,8 @@
     <ClInclude Include="src\HittableList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\RayTracing.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
