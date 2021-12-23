@@ -5,6 +5,7 @@
 #include "HittableList.h"
 #include "Sphere.h"
 #include "Color.h"
+#include "Camera.h"	
 
 #define print(x) image << x 
 #define println(x) image << x << "\n"
@@ -26,8 +27,11 @@ int main()
 	// Image
 
 	const float aspectRatio = 16.0f / 9.0f;
-	const int imageWidth = 1920;
-	const int imageHeight = static_cast<int>(imageWidth / aspectRatio);
+	const int imageHeight = 480;
+	const int imageWidth = static_cast<int>(imageHeight * aspectRatio);
+
+	//4x Antialiasing
+	const int samplesPerPixel = 4;
 
 	// World
 	HittableList world;
@@ -37,15 +41,7 @@ int main()
 	world.add(make_shared<Sphere>(Point3(0, -100.5, -1), 100));
 
 	// Camera
-
-	float vh = 2.0f;
-	float vw = aspectRatio * vh;
-	float focalLength = 1.0f;
-
-	auto origin = Point3(0, 0, 0);
-	auto horizontal = Vec3(vw, 0, 0);
-	auto vertical = Vec3(0, vh, 0);
-	auto lowerLeftCorner = origin - horizontal / 2 - vertical / 2 - Vec3(0, 0, focalLength);
+	Camera camera = Camera();
 
 	std::ofstream image;
 
@@ -58,16 +54,20 @@ int main()
 	println("255");
 
 
-	for (int j = imageHeight - 1; j >= 0; --j)
-	{
+	for (int j = imageHeight - 1; j >= 0; --j) {
 		std::cerr << "\rScanlines progress: " << float(imageHeight-j)*100/imageHeight << '%' << std::flush;
-		for (int i = 0; i < imageWidth; ++i)
-		{
-			auto u = float(i) / (imageWidth - 1);
-			auto v = float(j) / (imageHeight - 1);
-			Ray r = Ray(origin, lowerLeftCorner + u * horizontal + v * vertical);
-			Color pixelColor = rayColor(r, world);
-			writeColor(image, pixelColor);
+		for (int i = 0; i < imageWidth; ++i) {
+			Color pixelColor = Color(0.0f, 0.0f, 0.0f);
+			for (int s = 0; s < samplesPerPixel; ++s) {
+				auto u = (i + randFloat()) / (imageWidth - 1);
+				auto v = (j + randFloat()) / (imageHeight - 1);
+				Ray r = camera.getRay(u, v);
+				auto test = rayColor(r, world);
+				pixelColor = pixelColor + test;
+				;
+			}
+			writeColor(image, pixelColor, samplesPerPixel);
+
 
 		
 		}

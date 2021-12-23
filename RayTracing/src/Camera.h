@@ -1,17 +1,16 @@
 #pragma once
-#include "Vec3.h"
+#include "RayTracing.h"
 class Camera {
 public:
 
-	Camera()
-		: location(Point3(0.0f, 0.0f, 0.0f)), height(1280), width(720), aspect_ratio(width / height) {}
+	Camera();
 
-	Camera(Point3& location, int height, int width)
-		: location(location), height(height), width(width), aspect_ratio(width/height) {}
+	Ray getRay(float u, float v) const;
 
-public:
-	Point3 location;
-	int height, width, vh, vw;
-	int aspect_ratio; 
+private:
+	Point3 origin;
+	Point3 lowerLeftCorner;
+	Vec3 horizontal;
+	Vec3 vertical;
 
 };

@@ -4,4 +4,4 @@
 #include <fstream>
 
 
-void writeColor(std::ofstream& image, Color pixel_color);
+void writeColor(std::ofstream& image, Color pixelColor, int samplesPerpixel);
