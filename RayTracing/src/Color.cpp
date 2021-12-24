@@ -9,9 +9,9 @@ void writeColor(std::ofstream& image, Color pixelColor, int samplesPerPixel) {
     auto b = pixelColor.z();
 
     auto scale = 1.0f / samplesPerPixel;
-    r *= scale;
-    g *= scale;
-    b *= scale;
+    r = sqrt(scale * r);
+    g = sqrt(scale * g);
+    b = sqrt(scale * b);
 
     // Write the translated [0,255] value of each color component.
     image << static_cast<int>(256 * clamp(r, 0.0, 0.999f)) << ' '

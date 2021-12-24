@@ -7,18 +7,25 @@
 #include "Color.h"
 #include "Camera.h"	
 
+
 #define print(x) image << x 
 #define println(x) image << x << "\n"
 
 
-Color rayColor(const Ray& r, const Hittable& world) {
+Color rayColor(const Ray& r, const Hittable& world, int depth) {
 	HitRecord record;
-	if (world.hit(r, 0, infinity, record)) {
-		return 0.5 * (record.normal + Color(1, 1, 1));
+
+	if (depth <= 0)
+		return Color(0, 0, 0);
+
+
+	if (world.hit(r, 0.001f, infinity, record)) {
+		Point3 target = record.p + record.normal + randomUnitVector();
+		return 0.5 * rayColor(Ray(record.p, target - record.p), world, depth-1);
 	}
 	Vec3 unitDirection = unit_vector(r.getDirection());
-	auto t = 0.5 * (unitDirection.y() + 1.0);
-	return (1.0 - t) * Color(1.0, 1.0, 1.0) + t * Color(0.5, 0.7, 1.0);
+	float t = 0.5f * (unitDirection.y() + 1.0f);
+	return (1.0f - t) * Color(1.0f, 1.0f, 1.0f) + t * Color(0.5f, 0.7f, 1.0f);
 }
 
 int main()
@@ -27,11 +34,13 @@ int main()
 	// Image
 
 	const float aspectRatio = 16.0f / 9.0f;
-	const int imageHeight = 480;
+	const int imageHeight = 1080;
 	const int imageWidth = static_cast<int>(imageHeight * aspectRatio);
 
-	//4x Antialiasing
-	const int samplesPerPixel = 4;
+	//12x Antialiasing
+	const int maxDepth = 100;	
+	const int samplesPerPixel = 100;
+
 
 	// World
 	HittableList world;
@@ -62,9 +71,7 @@ int main()
 				auto u = (i + randFloat()) / (imageWidth - 1);
 				auto v = (j + randFloat()) / (imageHeight - 1);
 				Ray r = camera.getRay(u, v);
-				auto test = rayColor(r, world);
-				pixelColor = pixelColor + test;
-				;
+				pixelColor += rayColor(r, world, maxDepth);
 			}
 			writeColor(image, pixelColor, samplesPerPixel);
 
